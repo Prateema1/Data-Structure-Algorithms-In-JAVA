@@ -7,6 +7,7 @@ public class ArrayProblems {
         //int[] arr = {1, 4, 5, 9, 10, 18, 18};
         int[] arr = {1,1,2,2,3,3,4,4};
         int[] arr1 = {0,1,2,0,1,2,1,2,0,0,0,1};
+        int[] prices = {7,1,5,3,6,4};
         int n = arr.length;
 //        System.out.println("The largest element in the array is" + " " + printLargest(arr, n));
 //        System.out.println("The second largest element in the array is" + " " + print2Largest(arr, n));
@@ -20,7 +21,8 @@ public class ArrayProblems {
 
 //         System.out.print(Arrays.toString(leftRotateByOnePlace(arr, n)));
         //sortArrays(arr1);
-        sortArraysOptimal(arr1);
+//        sortArraysOptimal(arr1);
+        System.out.print(maximumProfit(prices));
     }
 
     static int printLargest(int[] arr, int n) {
@@ -136,21 +138,38 @@ public class ArrayProblems {
 
         while(mid <= high) {
             if(arr1[mid] == 0) {
-                int temp = arr1[low];
-                arr1[low] = arr1[mid];
-                arr1[mid] = temp;
+                swap(arr1, low, mid);
                 low++;
                 mid++;
             } else if(arr1[mid] == 1) {
                 mid++;
             } else {
-                int temp = arr1[mid];
-                arr1[mid] = arr1[high];
-                arr1[high] = temp;
+                swap(arr1, mid, high);
                 high--;
             }
         }
      System.out.print(Arrays.toString(arr1));
 
+    }
+
+    static void swap(int[] arr1, int i, int j) {
+        int temp = arr1[i];
+        arr1[i] = arr1[j];
+        arr1[j] = temp;
+    }
+
+    //Best Time To Buy And Sell a Stock
+    //Time Complexity = O(N)
+    //https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+    static int maximumProfit(int[] arr) {
+        int minimum = arr[0];
+        int maxProfit = 0;
+
+        for(int i = 1; i < arr.length; i++) {
+            int cost = arr[i] - minimum;
+            maxProfit = Math.max(maxProfit, cost);
+            minimum = Math.min(minimum, arr[i]);
+        }
+        return maxProfit;
     }
 }
