@@ -202,7 +202,7 @@ public class ArrayProblems {
         int n = matrix.length;
 
         //Transposing Matrix
-        for(int i = 0; i < n - 2; i++) {
+        for(int i = 0; i < n - 1; i++) {
             for(int j = i+1; j < n; j++) {
                int temp = matrix[i][j];
                matrix[i][j] = matrix[j][i];
