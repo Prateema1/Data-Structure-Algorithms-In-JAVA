@@ -9,6 +9,15 @@ public class ArrayProblems {
         int[] arr1 = {0,1,2,0,1,2,1,2,0,0,0,1};
         int[] prices = {7,1,5,3,6,4};
         int n = arr.length;
+
+        int[][] matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+
+//        rotateMatrixBy90Degree(matrix);
+        rotateMatrixBy90Optimal(matrix);
+
+
+
+
 //        System.out.println("The largest element in the array is" + " " + printLargest(arr, n));
 //        System.out.println("The second largest element in the array is" + " " + print2Largest(arr, n));
 //
@@ -172,4 +181,58 @@ public class ArrayProblems {
         }
         return maxProfit;
     }
+
+    //Brute Force Approach
+    //Time Complexity = O(N^2)
+    //Space Complexity = O(N^2);
+    static void rotateMatrixBy90Degree(int[][] matrix) {
+        int n = matrix.length;
+        int[][] rotatedMatrix = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                rotatedMatrix[j][n - 1 - i] = matrix[i][j];
+            }
+        }
+        for (int i = 0; i < rotatedMatrix.length; i++) {
+            System.out.println(Arrays.toString(rotatedMatrix[i]));
+        }
+    }
+
+    static  void rotateMatrixBy90Optimal(int[][] matrix) {
+        int n = matrix.length;
+
+        //Transposing Matrix
+        for(int i = 0; i < n - 2; i++) {
+            for(int j = i+1; j < n; j++) {
+               int temp = matrix[i][j];
+               matrix[i][j] = matrix[j][i];
+               matrix[j][i] = temp;
+            }
+        }
+
+        //Reverse each row of matrix
+        for (int i = 0; i < matrix.length; i++) {
+            reverseArray(matrix[i]);
+        }
+
+        //Print the final rotated image
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.println(Arrays.toString(matrix[i]));
+        }
+
+    }
+
+    static void reverseArray(int[] arr) {
+        int start = 0;
+        int end = arr.length - 1;
+
+        while (start < end) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
 }
